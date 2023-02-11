@@ -1,0 +1,37 @@
+{% extends "main/base.html" %}
+{% load static %}
+{% load i18n %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'main/css/list-view.css' %}">
+
+<div class="container">
+    <h1 class="item-title">{% trans 'Специализации' %}</h1>
+</div>
+
+<div class="container">
+    <a href="{% url 'add-spec' %}" class="info-button" style="margin: 0 0 20px 0">+ {% trans 'Добавить специализацию' %}</a>
+</div>
+
+<div class="container">
+    <div class="box">
+        {% if not specs %}
+            <h1>{% trans 'Пусто' %}</h1>
+        {% endif %}
+        <ul>
+            {% for spec in specs %}
+                <div class="item">
+                    <a href="{{ spec.get_absolute_url }}" class="link-width">
+                        <div class="item-box">
+                            <div style="margin-right: 20px">{% trans 'Код' %}: {% if spec.code %}{{ spec.code }}{% endif %}</div>
+                            <div class="name">{% trans 'Имя' %}: {{ spec.name }}</div>
+                        </div>
+                    </a>
+                    <div class="item-buttons">
+                        <a href="{% url 'delete-spec' pk=spec.pk %}" class="delete-button">{% trans 'Удалить специализацию' %}</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

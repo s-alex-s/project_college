@@ -1,0 +1,14 @@
+{% extends "main/base.html" %}
+{% load i18n %}
+{% load static %}
+{% block content %}
+    <link rel="stylesheet" href="{% static 'main/css/form.css' %}">
+
+    <div class="container">
+        <form method="post" enctype="multipart/form-data">{% csrf_token %}
+            <a href="{% url 'student-pattern-page' %}"><div class="blue-button">{% trans 'Скачать шаблон Excel' %}</div></a>
+            {{ form.as_p }}
+            <input type="submit" value="{% trans 'Добавить' %}">
+        </form>
+    </div>
+{% endblock %}

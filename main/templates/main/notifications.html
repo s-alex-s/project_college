@@ -1,0 +1,29 @@
+{% extends "main/base.html" %}
+{% load i18n %}
+{% load static %}
+{% block content %}
+    <link rel="stylesheet" href="{% static 'main/css/notifications.css' %}">
+    <div style="text-align: center">
+        <h1>{% trans 'Объявления' %}</h1>
+        <a href="{% url 'add-notif' %}" class="info-button">+ {% trans 'Добавить объявление' %}</a>
+        {% if not notifs %}
+            <h2>{% trans 'Пусто' %}</h2>
+        {% endif %}
+    </div>
+
+    <div class="container">
+        {% for i in notifs %}
+            <div class="item">
+                <a href="{{ i.get_absolute_url }}" class="link-width">
+                    <div class="item-box">
+                        <div class="date-time-notif">{{ i.date_time }}</div>
+                        <div>{{ i.content }}</div>
+                    </div>
+                    <div class="item-buttons">
+                        <a href="{% url 'delete-notif' pk=i.pk %}" class="delete-button">{% trans 'Удалить' %}</a>
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

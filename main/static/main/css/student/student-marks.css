@@ -1,0 +1,39 @@
+.container {
+    display: flex;
+    justify-content: center;
+}
+
+.box {
+}
+
+.marks-table {
+    margin: 30px 0;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    border-top: 1px solid black;
+}
+
+.row div {
+    padding: 5px;
+}
+
+.table-title {
+    border-bottom: 1px solid black;
+    box-sizing: border-box;
+    padding: 5px;
+    text-align: center;
+}
+
+.mark {
+    display: flex;
+    width: 100%;
+    box-sizing: border-box;
+    justify-content: center;
+    align-items: center;
+}
+
+.row-line {
+    border-bottom: 1px solid black;
+    box-sizing: border-box;
+    width: 100%;
+}

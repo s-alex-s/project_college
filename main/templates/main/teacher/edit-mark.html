@@ -1,0 +1,14 @@
+{% extends "main/base.html" %}
+{% load i18n %}
+{% load static %}
+{% block content %}
+    <link rel="stylesheet" href="{% static 'main/css/form.css' %}">
+
+    <div class="container">
+        <form method="post">{% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="{% trans 'Сохранить' %}">
+            <a href="{% url 'delete-mark' sch_pk=sch_pk mark_pk=mark_pk %}" class="delete-button">{% trans 'Удалить' %}</a>
+        </form>
+    </div>
+{% endblock %}

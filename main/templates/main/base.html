@@ -1,0 +1,47 @@
+{% load i18n %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>Neptunus</title>
+    <link rel="stylesheet" href="{% static 'main/css/base.css' %}">
+</head>
+<body>
+    <header>
+        <div class="header-box">
+            <a href="{% url 'main_page' %}"><h1>Neptunus</h1></a>
+            {% if request.user.is_authenticated %}
+                <nav>
+                    <div class="header-box">
+                        {% if request.user.student_profile %}
+                            {{ request.user.student_profile }}
+                            <a href="{% url 'student-profile' %}">{% trans 'Профиль' %}</a>
+                        {% else %}
+                            {{ request.user }}
+                            <a href="{% url 'user-profile' %}">{% trans 'Профиль' %}</a>
+                        {% endif %}
+
+                        {% if request.user.is_teacher and request.user.is_junioradmin %}
+                            <a href="{% url 'dashboard' %}">{% trans 'Панель управления' %}</a>
+                            <a href="{% url 'teacher-groups' %}">{% trans 'Страница преподавателя' %}</a>
+                        {% endif %}
+
+                        {% if request.user.is_superuser or request.user.is_junioradmin %}
+                            <a href="{% url 'reset-password' %}">{% trans 'Сбросить пароль' %}</a>
+                        {% endif %}
+
+                        <a href="{% url 'change-password' %}">{% trans 'Изменить пароль' %}</a>
+                        <a href="{% url 'logout' %}">{% trans 'Выйти' %}</a>
+                    </div>
+                </nav>
+            {% endif %}
+        </div>
+    </header>
+
+    <main role="main">
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

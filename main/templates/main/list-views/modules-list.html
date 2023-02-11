@@ -1,0 +1,39 @@
+{% extends "main/base.html" %}
+{% load static %}
+{% load i18n %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'main/css/list-view.css' %}">
+
+<div class="container">
+    <h1 class="item-title">{% trans 'Предметы' %}</h1>
+</div>
+
+<div class="container">
+    <a href="{% url 'add-module' %}" class="info-button" style="margin: 0 0 20px 0">+ {% trans 'Добавить предмет' %}</a>
+</div>
+
+<div class="container">
+    <div class="box">
+        {% if not modules %}
+            <h1>{% trans 'Пусто' %}</h1>
+        {% endif %}
+        <ul>
+            {% for module in modules %}
+                <div class="item">
+                    <a href="{{ module.get_absolute_url }}" class="link-width">
+                        <div class="item-column-box">
+                            <div>{% trans 'Индекс' %}: {% if module.module_index %}{{ module.module_index }}{% endif %}</div>
+                            <div class="name">{% trans 'Имя' %}: {{ module.module_name }}</div>
+                            <div>{% trans 'Всего часов в предмете' %}: {{ module.get_hours }}</div>
+                            <div>{% trans 'Форма итоговой атестации' %}: {% if module.exam_type == 'z' %}{% trans 'Зачет' %}{% elif module.exam_type == 'e' %}{% trans 'Экзамен' %}{% endif %}</div>
+                        </div>
+                        <div class="item-buttons">
+                            <a href="{% url 'delete-module' pk=module.pk %}" class="delete-button">{% trans 'Удалить предмет' %}</a>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

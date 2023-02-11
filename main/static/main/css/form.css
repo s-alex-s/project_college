@@ -1,0 +1,39 @@
+input, select {
+    width: 100%;
+}
+
+form {
+    width: 300px;
+    margin-bottom: 100px;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+}
+
+.delete-button {
+    padding: 5px 0;
+    color: white;
+    display: inline-block;
+    border-radius: 8px;
+    text-decoration: none;
+    background-color: red;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+    margin-top: 15px;
+}
+
+.blue-button {
+    padding: 5px 0;
+    color: white;
+    display: inline-block;
+    border-radius: 8px;
+    text-decoration: none;
+    background-color: #0235dc;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+    margin-top: 15px;
+}

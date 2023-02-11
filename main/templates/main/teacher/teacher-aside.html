@@ -1,0 +1,6 @@
+{% load i18n %}
+{% load static %}
+<aside>
+    <a href="{% url 'teacher-groups' %}"><div class="list-button"><div class="aside-button">{% trans 'Мои группы' %}</div></div></a>
+    <a href="{% url 'teacher-notifs' %}"><div class="list-button"><div class="aside-button">{% trans 'Объявления' %}</div></div></a>
+</aside>

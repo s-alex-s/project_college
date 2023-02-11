@@ -1,0 +1,144 @@
+.container {
+    display: flex;
+}
+
+.container2 {
+    display: flex;
+    justify-content: center;
+}
+
+.dashboard-panel {
+    width: 100%;
+    text-align: center;
+}
+.dashboard-title {
+    margin-top: 0;
+}
+
+aside {
+    width: 500px;
+    padding: 0 30px 40px;
+}
+
+aside a {
+    text-decoration: none;
+}
+
+.aside-button {
+    text-decoration: none;
+    font-size: 22px;
+    word-break: keep-all;
+    font-family: inherit;
+}
+
+.add-button {
+    width: 100%;
+    text-align: center;
+    background-color: #0235dc;
+    padding: 15px 30px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    color: white;
+    box-sizing: border-box;
+}
+
+.list-button {
+    width: 100%;
+    text-align: center;
+    padding: 15px 30px;
+    border-radius: 12px;
+    color: black;
+    border: 2px #0235dc solid;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+}
+
+.count {
+    font-size: 20px;
+}
+
+.counts {
+    text-align: start;
+    display: inline-block;
+}
+
+.dashboard-box {
+    width: max-content;
+}
+
+.info-button {
+    padding: 15px 0;
+    width: 300px;
+    font-size: 18px;
+    color: white;
+    display: inline-block;
+    border-radius: 12px;
+    text-decoration: none;
+    margin-bottom: 15px;
+    background-color: #0235dc;
+}
+
+.st-items {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.notif-box {
+    border: 1px solid #0235dc;
+    padding: 20px;
+    border-radius: 12px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+    max-width: 80%;
+}
+
+.notif-content {
+    text-align: start;
+}
+
+.date-time-notif {
+    text-align: start;
+    margin-bottom: 20px;
+}
+
+ul {
+    padding: 0;
+    margin: 0;
+    width: 80%;
+}
+
+.box2 {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.item {
+    margin-bottom: 20px;
+}
+
+.link-width {
+    width: unset;
+    text-decoration: none;
+    color: inherit;
+}
+
+.item-box {
+    text-align: start;
+    padding: 15px 25px;
+    border-radius: 12px;
+    border: 1px solid #0235dc;
+    box-sizing: border-box;
+}
+
+.name {
+    font-weight: bolder;
+}
+
+.day-name {
+    text-align: start;
+    margin-top: 40px;
+}

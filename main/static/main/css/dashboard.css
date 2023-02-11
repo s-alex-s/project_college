@@ -1,0 +1,74 @@
+.container {
+    display: flex;
+}
+
+.dashboard-panel {
+    width: 100%;
+    text-align: center;
+}
+.dashboard-title {
+    margin-top: 0;
+}
+
+aside {
+    width: 500px;
+    padding: 0 30px 40px;
+}
+
+aside a {
+    text-decoration: none;
+}
+
+.aside-button {
+    text-decoration: none;
+    font-size: 22px;
+    word-break: keep-all;
+    font-family: inherit;
+}
+
+.add-button {
+    width: 100%;
+    text-align: center;
+    background-color: #0235dc;
+    padding: 15px 30px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    color: white;
+    box-sizing: border-box;
+}
+
+.list-button {
+    width: 100%;
+    text-align: center;
+    padding: 15px 30px;
+    border-radius: 12px;
+    color: black;
+    border: 2px #0235dc solid;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+}
+
+.count {
+    font-size: 20px;
+}
+
+.counts {
+    text-align: start;
+    display: inline-block;
+}
+
+.dashboard-box {
+    width: max-content;
+}
+
+.info-button {
+    padding: 15px 60px;
+    font-size: 18px;
+    color: white;
+    margin-bottom: 20px;
+    width: 200px;
+    display: inline-block;
+    border-radius: 12px;
+    text-decoration: none;
+    background-color: #0235dc;
+}

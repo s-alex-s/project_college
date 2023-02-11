@@ -1,0 +1,175 @@
+{% extends "main/base.html" %}
+{% load static %}
+{% load i18n %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'main/css/list-view.css' %}">
+
+<div class="container">
+    <h1 class="item-title">{% trans 'Расписание' %}</h1>
+</div>
+
+<div class="container">
+    <div class="box">
+        <h2>{{ group.name }}</h2>
+        <a href="{% url 'create-schedule' pk=group.pk %}" class="info-button" style="margin-right: 0">+ {% trans 'Добавить расписание' %}</a>
+
+        <ul>
+            <h1>{{ days.0 }}</h1>
+            {% if not mon %}
+                <h3 style="margin-bottom: 50px">{% trans 'Пусто' %}</h3>
+            {% endif %}
+            {% for sch in mon %}
+                {% if sch.time_start %}
+                    <h2 style="text-align: center">{{ sch.time_start }}-{{ sch.time_end }}</h2>
+                {% else %}
+                    <h2 style="text-align: center">-</h2>
+                {% endif %}
+                <div class="item">
+                    <a href="{% url 'edit-schedule' group_pk=group.pk sch_pk=sch.pk %}" class="link-width">
+                        <div class="item-box">
+                            <div class="name">{% trans 'Предмет' %}: {{ sch.module }}</div>
+                            <div class="item-list">
+                                <div>{% trans 'Учителя' %}:</div>
+                                {% for i in sch.teachers.all %}<div>{{ i }}</div>{% endfor %}
+                            </div>
+                        </div>
+                        <div class="item-buttons">
+                            <a href="{% url 'delete-schedule' group_pk=group.pk sch_pk=sch.pk %}" class="delete-button">{% trans 'Удалить' %}</a>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+
+            <h1>{{ days.1 }}</h1>
+            {% if not tue %}
+                <h3 style="margin-bottom: 50px">{% trans 'Пусто' %}</h3>
+            {% endif %}
+            {% for sch in tue %}
+                {% if sch.time_start %}
+                    <h2 style="text-align: center">{{ sch.time_start }}-{{ sch.time_end }}</h2>
+                {% else %}
+                    <h2 style="text-align: center">-</h2>
+                {% endif %}
+                <div class="item">
+                    <a href="{% url 'edit-schedule' group_pk=group.pk sch_pk=sch.pk %}" class="link-width">
+                        <div class="item-box">
+                            <div class="name">{% trans 'Предмет' %}: {{ sch.module }}</div>
+                            <div class="item-list">
+                                <div>{% trans 'Учителя' %}:</div>
+                                {% for i in sch.teachers.all %}<div>{{ i }}</div>{% endfor %}
+                            </div>
+                        </div>
+                        <div class="item-buttons">
+                            <a href="{% url 'delete-schedule' group_pk=group.pk sch_pk=sch.pk %}" class="delete-button">{% trans 'Удалить' %}</a>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+
+            <h1>{{ days.2 }}</h1>
+            {% if not wed %}
+                <h3 style="margin-bottom: 50px">{% trans 'Пусто' %}</h3>
+            {% endif %}
+            {% for sch in wed %}
+                {% if sch.time_start %}
+                    <h2 style="text-align: center">{{ sch.time_start }}-{{ sch.time_end }}</h2>
+                {% else %}
+                    <h2 style="text-align: center">-</h2>
+                {% endif %}
+                <div class="item">
+                    <a href="{% url 'edit-schedule' group_pk=group.pk sch_pk=sch.pk %}" class="link-width">
+                        <div class="item-box">
+                            <div class="name">{% trans 'Предмет' %}: {{ sch.module }}</div>
+                            <div class="item-list">
+                                <div>{% trans 'Учителя' %}:</div>
+                                {% for i in sch.teachers.all %}<div>{{ i }}</div>{% endfor %}
+                            </div>
+                        </div>
+                        <div class="item-buttons">
+                            <a href="{% url 'delete-schedule' group_pk=group.pk sch_pk=sch.pk %}" class="delete-button">{% trans 'Удалить' %}</a>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+
+            <h1>{{ days.3 }}</h1>
+            {% if not thu %}
+                <h3 style="margin-bottom: 50px">{% trans 'Пусто' %}</h3>
+            {% endif %}
+            {% for sch in thu %}
+                {% if sch.time_start %}
+                    <h2 style="text-align: center">{{ sch.time_start }}-{{ sch.time_end }}</h2>
+                {% else %}
+                    <h2 style="text-align: center">-</h2>
+                {% endif %}
+                <div class="item">
+                    <a href="{% url 'edit-schedule' group_pk=group.pk sch_pk=sch.pk %}" class="link-width">
+                        <div class="item-box">
+                            <div class="name">{% trans 'Предмет' %}: {{ sch.module }}</div>
+                            <div class="item-list">
+                                <div>{% trans 'Учителя' %}:</div>
+                                {% for i in sch.teachers.all %}<div>{{ i }}</div>{% endfor %}
+                            </div>
+                        </div>
+                        <div class="item-buttons">
+                            <a href="{% url 'delete-schedule' group_pk=group.pk sch_pk=sch.pk %}" class="delete-button">{% trans 'Удалить' %}</a>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+
+            <h1>{{ days.4 }}</h1>
+            {% if not fri %}
+                <h3 style="margin-bottom: 50px">{% trans 'Пусто' %}</h3>
+            {% endif %}
+            {% for sch in fri %}
+                {% if sch.time_start %}
+                    <h2 style="text-align: center">{{ sch.time_start }}-{{ sch.time_end }}</h2>
+                {% else %}
+                    <h2 style="text-align: center">-</h2>
+                {% endif %}
+                <div class="item">
+                    <a href="{% url 'edit-schedule' group_pk=group.pk sch_pk=sch.pk %}" class="link-width">
+                        <div class="item-box">
+                            <div class="name">{% trans 'Предмет' %}: {{ sch.module }}</div>
+                            <div class="item-list">
+                                <div>{% trans 'Учителя' %}:</div>
+                                {% for i in sch.teachers.all %}<div>{{ i }}</div>{% endfor %}
+                            </div>
+                        </div>
+                        <div class="item-buttons">
+                            <a href="{% url 'delete-schedule' group_pk=group.pk sch_pk=sch.pk %}" class="delete-button">{% trans 'Удалить' %}</a>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+
+            <h1>{{ days.5 }}</h1>
+            {% if not sat %}
+                <h3 style="margin-bottom: 50px">{% trans 'Пусто' %}</h3>
+            {% endif %}
+            {% for sch in sat %}
+                {% if sch.time_start %}
+                    <h2 style="text-align: center">{{ sch.time_start }}-{{ sch.time_end }}</h2>
+                {% else %}
+                    <h2 style="text-align: center">-</h2>
+                {% endif %}
+                <div class="item">
+                    <a href="{% url 'edit-schedule' group_pk=group.pk sch_pk=sch.pk %}" class="link-width">
+                        <div class="item-box">
+                            <div class="name">{% trans 'Предмет' %}: {{ sch.module }}</div>
+                            <div class="item-list">
+                                <div>{% trans 'Учителя' %}:</div>
+                                {% for i in sch.teachers.all %}<div>{{ i }}</div>{% endfor %}
+                            </div>
+                        </div>
+                        <div class="item-buttons">
+                            <a href="{% url 'delete-schedule' group_pk=group.pk sch_pk=sch.pk %}" class="delete-button">{% trans 'Удалить' %}</a>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

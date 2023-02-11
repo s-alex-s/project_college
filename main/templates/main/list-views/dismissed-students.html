@@ -1,0 +1,32 @@
+{% extends "main/base.html" %}
+{% load static %}
+{% load i18n %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'main/css/list-view.css' %}">
+
+<div class="container">
+    <h1 class="item-title">{% trans 'Отчисленные студенты' %}</h1>
+</div>
+
+<div class="container">
+    <div class="box">
+        {% if not students %}
+            <h1>{% trans 'Пусто' %}</h1>
+        {% endif %}
+        <ul>
+            {% for student in students %}
+                <div class="item">
+                    <div class="link">
+                        <div class="item-box">
+                            <div class="name">{{ student }}</div>
+                        </div>
+                    </div>
+                    <div class="item-buttons">
+                        <a href="{% url 'recovery-student' pk=student.pk %}" class="info-button">{% trans 'Восстановить студента' %}</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

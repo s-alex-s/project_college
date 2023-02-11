@@ -1,0 +1,37 @@
+{% extends "main/base.html" %}
+{% load i18n %}
+{% load static %}
+{% block content %}
+    <link rel="stylesheet" href="{% static 'main/css/dashboard.css' %}">
+
+    <div class="container">
+        <aside>
+            <a href="{% url 'teachers-list' %}"><div class="list-button"><div class="aside-button">{% trans 'Список преподавателей' %}</div></div></a>
+            <a href="{% url 'students-list' %}"><div class="list-button"><div class="aside-button">{% trans 'Список студентов' %}</div></div></a>
+            <a href="{% url 'groups-list' %}"><div class="list-button"><div class="aside-button">{% trans 'Список групп' %}</div></div></a>
+            <a href="{% url 'modules-list' %}"><div class="list-button"><div class="aside-button">{% trans 'Список предметов' %}</div></div></a>
+            <a href="{% url 'topics-list' %}"><div class="list-button"><div class="aside-button">{% trans 'Список тем' %}</div></div></a>
+            <a href="{% url 'quals-list' %}"><div class="list-button"><div class="aside-button">{% trans 'Список квалификаций' %}</div></div></a>
+            <a href="{% url 'specs-list' %}"><div class="list-button"><div class="aside-button">{% trans 'Список специализаций' %}</div></div></a>
+            <a href="{% url 'add-user' %}"><div class="add-button"><div class="aside-button">{% trans 'Добавить пользователя' %}</div></div></a>
+            <a href="{% url 'add-student' %}"><div class="add-button"><div class="aside-button">{% trans 'Добавить студента' %}</div></div></a>
+            <a href="{% url 'add-group' %}"><div class="add-button"><div class="aside-button">{% trans 'Добавить группу' %}</div></div></a>
+            <a href="{% url 'add-module' %}"><div class="add-button"><div class="aside-button">{% trans 'Добавить предмет' %}</div></div></a>
+            <a href="{% url 'add-topic' %}"><div class="add-button"><div class="aside-button">{% trans 'Добавить тему' %}</div></div></a>
+            <a href="{% url 'add-qual' %}"><div class="add-button"><div class="aside-button">{% trans 'Добавить квалификацию' %}</div></div></a>
+            <a href="{% url 'add-spec' %}"><div class="add-button"><div class="aside-button">{% trans 'Добавить специализацию' %}</div></div></a>
+        </aside>
+
+        <div class="dashboard-panel">
+            <h1 class="dashboard-title">{% trans 'Панель управления' %}</h1>
+
+            <div class="counts">
+                <p class="count">{% trans 'Кол-во студентов' %}: {{ student_count }}</p>
+                <p class="count">{% trans 'Кол-во преподавателей' %}: {{ teachers_count }}</p>
+            </div>
+            <div><a href="{% url 'groups-schedule' %}" class="info-button">{% trans 'Расписание' %}</a></div>
+            <div><a href="{% url 'notifs-admin' %}" class="info-button">{% trans 'Объявления' %}</a></div>
+            <div><a href="{% url 'dismissed-students' %}" class="info-button">{% trans 'Отчисленные студенты' %}</a></div>
+        </div>
+    </div>
+{% endblock %}

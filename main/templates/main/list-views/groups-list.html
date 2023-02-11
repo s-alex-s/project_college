@@ -1,0 +1,36 @@
+{% extends "main/base.html" %}
+{% load static %}
+{% load i18n %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'main/css/list-view.css' %}">
+
+<div class="container">
+    <h1 class="item-title">{% trans 'Группы' %}</h1>
+</div>
+
+<div class="container">
+    <a href="{% url 'add-group' %}" class="info-button" style="margin: 0 0 20px 0">+ {% trans 'Добавить группу' %}</a>
+</div>
+
+<div class="container">
+    <div class="box">
+        {% if not groups %}
+            <h1>{% trans 'Пусто' %}</h1>
+        {% endif %}
+        <ul>
+            {% for group in groups %}
+                <div class="item">
+                    <a href="{{ group.get_absolute_url }}" class="link-width">
+                        <div class="group-box">
+                            <div class="name">{% trans 'Группа' %}: {{ group.name }}</div>
+                        </div>
+                    </a>
+                    <div class="item-buttons">
+                        <a href="{% url 'delete-group' pk=group.pk %}" class="delete-button">{% trans 'Удалить группу' %}</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

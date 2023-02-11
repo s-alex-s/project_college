@@ -1,0 +1,185 @@
+{% extends "main/base.html" %}
+{% load static %}
+{% load i18n %}
+{% block content %}
+    <link rel="stylesheet" href="{% static 'main/css/teacher/journal.css' %}">
+    <link rel="stylesheet" href="{% static 'main/css/marks.css' %}">
+    <script src="{% static 'main/scripts/jquery-3.6.3.js' %}"></script>
+
+    <div style="text-align: center">
+        <h1>{% trans 'Журнал' %}</h1>
+        <h2>{% trans 'Предмет' %}: {{ sch.module.module_index }} {{ sch.module.module_name }}</h2>
+    </div>
+
+    <div class="container">
+        <div class="box">
+            {% if msg %}
+                <h3 style="color: red">{{ msg }}</h3>
+            {% endif %}
+
+            {% if journal.topics %}
+                <form method="post" class="journal-table">{% csrf_token %}
+                    <div>
+                        <div class="col-title" style="border-left: 1px solid black; border-right: 0;"> </div>
+                        <div class="col">
+                            <div class="first-borders up-blocks table-title">№</div>
+                            {% for n in journal.students %}
+                                <div class="n">{{ forloop.counter }}</div>
+                            {% endfor %}
+                            <div class="n"> </div>
+                            <div class="info-height1 left-bottom-borders"></div>
+                            <div class="info-height2 left-bottom-borders"></div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="col-title" style="border-right: 1px solid black"> </div>
+                        <div class="col">
+                            <div class="up-borders up-blocks table-title">{% trans 'ФИО' %}</div>
+                            {% for st in journal.students %}
+                                <div class="student-name">{{ st.last_name }} {{ st.first_name }}</div>
+                            {% endfor %}
+
+                            <div class="additional-info">{% trans 'Количество учебных часов' %}</div>
+                            <div class="rotate-borders info-height1"><div class="rotate-text">{% trans 'Тема задания/критерии оценки' %}</div></div>
+                            <div class="down-borders rotate-borders info-height2"><div class="rotate-text">{% trans 'Что задано' %}</div></div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="col-title">{% trans 'Дата проведения занятия' %}</div>
+
+                        <div class="topic-col">
+                            {% for topic in journal.marks %}
+                                <div class="col">
+                                    {% for mark in topic %}
+                                        {% if forloop.first %}
+                                            <div class="up-borders up-blocks flex-blocks">
+                                                {% if mark.1 == ' ' %}
+                                                    <input class="rotate-input" name="date_empty_{{ mark.0.pk }}" type="text" maxlength="8">
+                                                {% else %}
+                                                    <input class="rotate-input" value="{{ mark.1.date_time|date:'d b y' }}" name="date_{{ mark.1.pk }}" type="text" maxlength="8">
+                                                {% endif %}
+                                            </div>
+                                        {% elif mark.0 == ' ' %}
+                                            <div class="mark"><input name="{{ topic.0.0.pk }}_{{ mark.1 }}" type="text" maxlength="3" class="empty-mark"></div>
+                                        {% else %}
+                                            {% if marks_rating.good_min <= mark.1 and mark.1 <= marks_rating.good_max %}
+                                                <div class="mark"><input name="{{ mark.0 }}" type="text" maxlength="3" class="good-mark" value="{{ mark.1 }}"></div>
+                                            {% elif marks_rating.mid_min <= mark.1 and mark.1 <= marks_rating.mid_max %}
+                                                <div class="mark"><input name="{{ mark.0 }}" type="text" maxlength="3" class="mid-mark" value="{{ mark.1 }}"></div>
+                                            {% elif mark.1 < marks_rating.mid_min %}
+                                                <div class="mark"><input name="{{ mark.0 }}" type="text" maxlength="3" class="bad-mark" value="{{ mark.1 }}"></div>
+                                            {% elif not mark.1 %}
+                                                <div class="mark"><input name="{{ mark.0 }}" type="text" maxlength="3" class="bad-mark" value="{% trans 'н' %}"></div>
+                                            {% endif %}
+                                        {% endif %}
+
+                                        {% if forloop.last %}
+                                            {% if topic.0.0.hours %}
+                                                <div class="mark">{{ topic.0.0.hours }}</div>
+                                            {% else %}
+                                                <div class="mark">0</div>
+                                            {% endif %}
+
+                                            <div class="rotate-borders3 info-height1"><div class="rotate-text word-wrap">{{ topic.0.0.name }}</div></div>
+                                            <div class="rotate-borders2 info-height2"><div class="rotate-text word-wrap">{{ topic.0.0.home_task }}</div></div>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div>
+                        <div style="display: flex">
+                            <div class="col">
+                                <div style="border-right: 1px solid black; border-top: 1px solid black"> </div>
+                                <div class="right-table-titles table-title up-borders up-blocks">{% trans 'Текущая средняя оценка' %}</div>
+                                {% for i in mid_marks %}
+                                    <div class="mark">{{ i }}</div>
+                                {% endfor %}
+                            </div>
+
+                            <div class="col">
+                                <div style="border-right: 1px solid black; border-top: 1px solid black"> </div>
+                                <div class="right-table-titles table-title up-borders up-blocks">{% trans 'Оценка за I семестр' %}</div>
+                                {% for i in journal.students %}
+                                    <div class="mark"> </div>
+                                {% endfor %}
+                            </div>
+
+                            <div class="col">
+                                <div style="border-right: 1px solid black; border-top: 1px solid black"> </div>
+                                <div class="right-table-titles table-title up-borders up-blocks">{% trans 'Оценка за II семестр' %}</div>
+                                {% for i in journal.students %}
+                                    <div class="mark"> </div>
+                                {% endfor %}
+                            </div>
+
+                            <div class="col">
+                                <div style="border-right: 1px solid black; border-top: 1px solid black"> </div>
+                                <div class="right-table-titles table-title up-borders up-blocks">{% trans 'Рейтинг допуска' %}</div>
+                                {% for i in journal.students %}
+                                    <div class="mark"> </div>
+                                {% endfor %}
+                            </div>
+
+                            <div class="col">
+                                <div style="border-right: 1px solid black; border-top: 1px solid black"> </div>
+                                <div class="right-table-titles table-title up-borders up-blocks">{% trans 'Экзаменационная оценка' %}</div>
+                                {% for i in journal.students %}
+                                    <div class="mark"> </div>
+                                {% endfor %}
+                            </div>
+
+                            <div class="col">
+                                <div style="border-right: 1px solid black; border-top: 1px solid black"> </div>
+                                <div class="right-table-titles table-title up-borders up-blocks">{% trans 'Итоговая оценка' %}</div>
+                                {% for i in journal.students %}
+                                    <div class="mark"> </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <div class="total-hours">{% trans 'Итого часов' %}: {{ total_hours }}</div>
+
+                        <input type="submit" class="info-button journal-buttons" value="{% trans 'Сохранить оценки' %}">
+                        <a href="{{ request.path }}"><div class="info-button journal-buttons reload-button">{% trans 'Обновить' %}</div></a>
+                    </div>
+                </form>
+            {% else %}
+                <h1 style="text-align: center">{% trans 'Отсутствуют темы' %}</h1>
+            {% endif %}
+        </div>
+    </div>
+
+    <script>
+        $('.mark').each(function() {
+            let elem = $(this).children();
+            let mark_values = {{ mark_values|safe }}['data'];
+
+            elem.data('oldVal', elem.val());
+
+            elem.bind("input", function(event) {
+                if (elem.data('oldVal') !== elem.val()) {
+                    elem.removeClass(elem.attr('class'));
+
+                    if (mark_values.includes(elem.val())) {
+                        if ({{ marks_rating.good_min }} <= parseInt(elem.val()) && parseInt(elem.val()) <= {{ marks_rating.good_max }}) {
+                            elem.addClass('good-mark');
+                        } else if ({{ marks_rating.mid_min }} <= parseInt(elem.val()) && parseInt(elem.val()) <= {{ marks_rating.mid_max }}) {
+                            elem.addClass('mid-mark');
+                        } else {
+                            elem.addClass('bad-mark');
+                        }
+                    } else {
+                        elem.val('');
+                        elem.addClass('empty-mark');
+                    }
+                    elem.data('oldVal', elem.val());
+                }
+            });
+        });
+    </script>
+{% endblock %}

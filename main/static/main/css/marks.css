@@ -1,0 +1,25 @@
+.good-mark, .mid-mark, .bad-mark, .empty-mark {
+    padding: 0 3px !important;
+    width: 28px !important;
+    text-align: center;
+}
+
+.good-mark, .mid-mark, .bad-mark {
+    color: white !important;
+}
+
+.empty-mark {
+    color: black !important;
+}
+
+.good-mark {
+    background-color: #098500 !important;
+}
+
+.mid-mark {
+    background-color: #df7a00 !important;
+}
+
+.bad-mark {
+    background-color: #e10000 !important;
+}

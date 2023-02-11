@@ -1,0 +1,38 @@
+{% extends "main/base.html" %}
+{% load static %}
+{% load i18n %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'main/css/list-view.css' %}">
+
+<div class="container">
+    <h1 class="item-title">{% trans 'Учителя' %}</h1>
+</div>
+
+<div class="container">
+    <a href="{% url 'add-user' %}" class="info-button" style="margin: 0 0 20px 0">+ {% trans 'Добавить пользователя' %}</a>
+</div>
+
+<div class="container">
+    <div class="box">
+        {% if not teachers %}
+            <h1>{% trans 'Пусто' %}</h1>
+        {% endif %}
+        <ul>
+            {% for teacher in teachers %}
+                <div class="item">
+                    <a href="{{ teacher.get_absolute_url }}" class="link">
+                        <div class="item-box">
+                            <div class="name">{{ teacher }}</div>
+                            <div>{% trans 'Номер телефона' %}: {{ teacher.phone_number }}</div>
+                            <div>{% trans 'E-mail' %}: {{ teacher.email }}</div>
+                        </div>
+                    </a>
+                    <div class="item-buttons">
+                        <a href="{% url 'delete-user' pk=teacher.pk %}" class="delete-button">{% trans 'Удалить учителя' %}</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

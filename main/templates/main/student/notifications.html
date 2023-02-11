@@ -1,0 +1,26 @@
+{% extends "main/base.html" %}
+{% load i18n %}
+{% load static %}
+{% block content %}
+    <link rel="stylesheet" href="{% static 'main/css/student/student.css' %}">
+
+    <div class="container">
+        {% include 'main/student/student-aside.html' %}
+
+        <div class="dashboard-panel">
+            <h1>{% trans 'Объявления' %}</h1>
+            {% if not notifs %}
+                <h2>{% trans 'Пусто' %}</h2>
+            {% endif %}
+
+            <div class="st-items">
+                {% for i in notifs %}
+                    <div class="notif-box">
+                        <div class="date-time-notif">{{ i.date_time }}</div>
+                        <div class="notif-content">{{ i.content }}</div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

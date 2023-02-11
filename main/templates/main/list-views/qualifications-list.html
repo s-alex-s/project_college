@@ -1,0 +1,37 @@
+{% extends "main/base.html" %}
+{% load static %}
+{% load i18n %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'main/css/list-view.css' %}">
+
+<div class="container">
+    <h1 class="item-title">{% trans 'Квалификации' %}</h1>
+</div>
+
+<div class="container">
+    <a href="{% url 'add-qual' %}" class="info-button" style="margin: 0 0 20px 0">+ {% trans 'Добавить квалификацию' %}</a>
+</div>
+
+<div class="container">
+    <div class="box">
+        {% if not quals %}
+            <h1>{% trans 'Пусто' %}</h1>
+        {% endif %}
+        <ul>
+            {% for qual in quals %}
+                <div class="item">
+                    <a href="{{ qual.get_absolute_url }}" class="link-width">
+                        <div class="item-box">
+                            <div style="margin-right: 20px">{% trans 'Код' %}: {% if qual.code %}{{ qual.code }}{% endif %}</div>
+                            <div class="name">{% trans 'Имя' %}: {{ qual.name }}</div>
+                        </div>
+                    </a>
+                    <div class="item-buttons">
+                        <a href="{% url 'delete-qual' pk=qual.pk %}" class="delete-button">{% trans 'Удалить квалификацию' %}</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

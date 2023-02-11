@@ -1,0 +1,100 @@
+.container {
+    display: flex;
+    justify-content: center;
+}
+
+.item-title {
+    margin-top: -5px;
+    margin-bottom: 40px;
+}
+
+ul {
+    padding: 0;
+    margin: 0;
+    width: 80%;
+}
+
+.box {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.item-box {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 25px;
+    border-radius: 12px;
+    border: 1px solid #0235dc;
+    box-sizing: border-box;
+}
+
+.item-column-box {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    padding: 15px 25px;
+    line-height: 30px;
+    box-sizing: border-box;
+    border-radius: 12px;
+    border: 1px solid #0235dc;
+}
+
+.link {
+    text-decoration: none;
+    color: inherit;
+    width: 100%;
+}
+
+.name {
+    font-weight: bolder;
+}
+
+.group-box {
+    padding: 15px 25px;
+    border-radius: 12px;
+    border: 1px solid #0235dc;
+    text-align: center;
+}
+
+.link-width {
+    width: unset;
+    text-decoration: none;
+    color: inherit;
+}
+
+.item {
+    margin-bottom: 20px;
+}
+
+.item-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 5px;
+}
+
+.info-button {
+    padding: 10px 20px;
+    margin-right: 10px;
+    color: white;
+    display: inline-block;
+    border-radius: 12px;
+    text-decoration: none;
+    background-color: #0235dc;
+}
+
+.delete-button {
+    padding: 10px 20px;
+    margin-right: 10px;
+    color: white;
+    display: inline-block;
+    border-radius: 12px;
+    text-decoration: none;
+    background-color: red;
+}
+
+.item-list {
+    display: flex;
+    flex-direction: column;
+}

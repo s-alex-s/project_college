@@ -1,0 +1,42 @@
+{% extends "main/base.html" %}
+{% load static %}
+{% load i18n %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'main/css/list-view.css' %}">
+
+<div class="container">
+    <h1 class="item-title">{% trans 'Студенты' %}</h1>
+</div>
+
+<div class="container">
+    <a href="{% url 'add-student' %}" class="info-button" style="margin: 0 0 20px 0">+ {% trans 'Добавить студента' %}</a>
+    <a href="{% url 'add-student-file' %}" class="info-button" style="margin: 0 0 20px 10px">+ {% trans 'Добавить студентов с файла Excel' %}</a>
+</div>
+
+<div class="container">
+    <div class="box">
+        {% if not students %}
+            <h1>{% trans 'Пусто' %}</h1>
+        {% endif %}
+        <ul>
+            {% for student in students %}
+                <div class="item">
+                    <a href="{{ student.get_absolute_url }}" class="link">
+                        <div class="item-box">
+                            <div class="name">{{ student }}</div>
+                            <div>{% trans 'Группа' %}: {{ student.group.name }}</div>
+                        </div>
+                    </a>
+                    <div class="item-buttons">
+                        {% if student.group %}
+                            <a href="{{ student.group.get_absolute_url }}" class="info-button">{% trans 'Редактировать группу' %}</a>
+                        {% endif %}
+                        <a href="{% url 'delete-student' pk=student.pk %}" class="delete-button">{% trans 'Удалить студента' %}</a>
+                        <a href="{% url 'dismiss-student' pk=student.pk %}" class="delete-button">{% trans 'Отчислить студента' %}</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

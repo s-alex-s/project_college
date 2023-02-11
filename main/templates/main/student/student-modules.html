@@ -1,0 +1,134 @@
+{% extends "main/base.html" %}
+{% load i18n %}
+{% load static %}
+{% block content %}
+    <link rel="stylesheet" href="{% static 'main/css/student/student.css' %}">
+
+    <div class="container">
+        {% include 'main/student/student-aside.html' %}
+
+        <div class="dashboard-panel">
+            <h1>{{ group }}</h1>
+
+            <div class="container2">
+                <div class="box2">
+                    <ul>
+                        <h2 class="day-name">{{ days.0 }}</h2>
+                        {% if not mon %}
+                            <h3 style="margin-bottom: 50px; text-align: start">{% trans 'Пусто' %}</h3>
+                        {% endif %}
+                        {% for sch in mon %}
+                            {% if sch.time_start %}
+                                <h3 style="text-align: center">{{ sch.time_start }}-{{ sch.time_end }}</h3>
+                            {% else %}
+                                <h2 style="text-align: center">-</h2>
+                            {% endif %}
+                            <div class="item">
+                                <a href="{% url 'student-marks' sch_pk=sch.pk %}" class="link-width">
+                                    <div class="item-box">
+                                        <div class="name">{% trans 'Предмет' %}: {{ sch.module }}</div>
+                                    </div>
+                                </a>
+                            </div>
+                        {% endfor %}
+
+                        <h2 class="day-name">{{ days.1 }}</h2>
+                        {% if not tue %}
+                            <h3 style="margin-bottom: 50px; text-align: start">{% trans 'Пусто' %}</h3>
+                        {% endif %}
+                        {% for sch in tue %}
+                            {% if sch.time_start %}
+                                <h3 style="text-align: center">{{ sch.time_start }}-{{ sch.time_end }}</h3>
+                            {% else %}
+                                <h2 style="text-align: center">-</h2>
+                            {% endif %}
+                            <div class="item">
+                                <a href="{% url 'student-marks' sch_pk=sch.pk %}" class="link-width">
+                                    <div class="item-box">
+                                        <div class="name">{% trans 'Предмет' %}: {{ sch.module }}</div>
+                                    </div>
+                                </a>
+                            </div>
+                        {% endfor %}
+
+                        <h2 class="day-name">{{ days.2 }}</h2>
+                        {% if not wed %}
+                            <h3 style="margin-bottom: 50px; text-align: start">{% trans 'Пусто' %}</h3>
+                        {% endif %}
+                        {% for sch in wed %}
+                            {% if sch.time_start %}
+                                <h3 style="text-align: center">{{ sch.time_start }}-{{ sch.time_end }}</h3>
+                            {% else %}
+                                <h2 style="text-align: center">-</h2>
+                            {% endif %}
+                            <div class="item">
+                                <a href="{% url 'student-marks' sch_pk=sch.pk %}" class="link-width">
+                                    <div class="item-box">
+                                        <div class="name">{% trans 'Предмет' %}: {{ sch.module }}</div>
+                                    </div>
+                                </a>
+                            </div>
+                        {% endfor %}
+
+                        <h2 class="day-name">{{ days.3 }}</h2>
+                        {% if not thu %}
+                            <h3 style="margin-bottom: 50px; text-align: start">{% trans 'Пусто' %}</h3>
+                        {% endif %}
+                        {% for sch in thu %}
+                            {% if sch.time_start %}
+                                <h3 style="text-align: center">{{ sch.time_start }}-{{ sch.time_end }}</h3>
+                            {% else %}
+                                <h2 style="text-align: center">-</h2>
+                            {% endif %}
+                            <div class="item">
+                                <a href="{% url 'student-marks' sch_pk=sch.pk %}" class="link-width">
+                                    <div class="item-box">
+                                        <div class="name">{% trans 'Предмет' %}: {{ sch.module }}</div>
+                                    </div>
+                                </a>
+                            </div>
+                        {% endfor %}
+
+                        <h2 class="day-name">{{ days.4 }}</h2>
+                        {% if not fri %}
+                            <h3 style="margin-bottom: 50px; text-align: start">{% trans 'Пусто' %}</h3>
+                        {% endif %}
+                        {% for sch in fri %}
+                            {% if sch.time_start %}
+                                <h3 style="text-align: center">{{ sch.time_start }}-{{ sch.time_end }}</h3>
+                            {% else %}
+                                <h2 style="text-align: center">-</h2>
+                            {% endif %}
+                            <div class="item">
+                                <a href="{% url 'student-marks' sch_pk=sch.pk %}" class="link-width">
+                                    <div class="item-box">
+                                        <div class="name">{% trans 'Предмет' %}: {{ sch.module }}</div>
+                                    </div>
+                                </a>
+                            </div>
+                        {% endfor %}
+
+                        <h2 class="day-name">{{ days.5 }}</h2>
+                        {% if not sat %}
+                            <h3 style="margin-bottom: 50px; text-align: start">{% trans 'Пусто' %}</h3>
+                        {% endif %}
+                        {% for sch in sat %}
+                            {% if sch.time_start %}
+                                <h3 style="text-align: center">{{ sch.time_start }}-{{ sch.time_end }}</h3>
+                            {% else %}
+                                <h2 style="text-align: center">-</h2>
+                            {% endif %}
+                            <div class="item">
+                                <a href="{% url 'student-marks' sch_pk=sch.pk %}" class="link-width">
+                                    <div class="item-box">
+                                        <div class="name">{% trans 'Предмет' %}: {{ sch.module }}</div>
+                                    </div>
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

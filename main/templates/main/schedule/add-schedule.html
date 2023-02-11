@@ -1,0 +1,17 @@
+{% extends "main/base.html" %}
+{% load i18n %}
+{% load static %}
+{% block content %}
+    <link rel="stylesheet" href="{% static 'main/css/form.css' %}">
+
+    <div style="text-align: center;">
+        <h1>{{ group.name }}</h1>
+    </div>
+
+    <div class="container">
+        <form method="post" style="text-align: start; width: border-box">{% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="{% trans 'Добавить' %}">
+        </form>
+    </div>
+{% endblock %}

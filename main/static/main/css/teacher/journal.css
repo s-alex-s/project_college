@@ -1,0 +1,210 @@
+.container {
+    display: flex;
+    justify-content: center;
+}
+
+.box {
+    width: 95%;
+}
+
+.journal-table {
+    display: flex;
+    font-size: 14px;
+    margin: 50px 0;
+    white-space: nowrap;
+}
+
+.table-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.row {
+    display: flex;
+}
+.row div, .row a {
+    width: 100px;
+}
+.row a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.col {
+    width: 100%;
+}
+
+.col a {
+    text-decoration: none;
+}
+
+.col div {
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+.up-blocks {
+    height: 80px;
+    overflow: hidden;
+}
+
+.up-borders {
+    border-top: 1px solid black;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+}
+
+.first-borders {
+    border: 1px solid black;
+}
+
+.info-button {
+    padding: 10px 20px;
+    color: white;
+    display: inline-block;
+    border-radius: 12px;
+    text-decoration: none;
+    background-color: #0235dc;
+    border: 0;
+    cursor: pointer;
+    font: inherit;
+}
+
+.journal-buttons {
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+
+.student-name {
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+}
+
+.n {
+    border-left: 1px solid black;
+    text-align: center;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+}
+
+.mark {
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+    text-align: center;
+}
+.mark input {
+    all: unset;
+    border: unset;
+}
+
+.rotate-text {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    word-break: break-word;
+    width: 100%;
+    font-size: 14px;
+    height: 100%;
+}
+
+.rotate-input {
+    all: unset;
+    width: 70px;
+    height: 20px;
+    padding: 0 !important;
+    box-sizing: border-box;
+    transform: rotate(270deg);
+    position: absolute;
+    font-size: 13px;
+    text-align: center;
+}
+
+.flex-blocks {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.additional-info {
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+}
+
+.down-borders {
+    border-bottom: 1px solid black;
+    box-sizing: border-box;
+}
+
+.rotate-borders {
+    border-right: 1px solid black;
+    box-sizing: border-box;
+    border-bottom: 1px solid black;
+}
+
+.rotate-borders2 {
+    border-right: 1px solid black;
+    box-sizing: border-box;
+    border-bottom: 1px solid black;
+}
+
+.rotate-borders3 {
+    box-sizing: border-box;
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+}
+
+.topic-col {
+    display: flex;
+    box-sizing: border-box;
+    max-width: 500px;
+    overflow-x: scroll;
+}
+
+.info-height1 {
+    height: 280px;
+    box-sizing: border-box;
+}
+
+.info-height2 {
+    height: 130px;
+    box-sizing: border-box;
+}
+
+.left-bottom-borders {
+    border-left: 1px solid black;
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+}
+
+.col-title {
+    width: 100%;
+    padding: 5px;
+    text-align: center;
+    box-sizing: border-box;
+    border-top: 1px solid black;
+    border-right: 1px solid black;
+}
+
+.total-hours {
+    width: 100%;
+    text-align: center;
+    padding: 5px;
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+    box-sizing: border-box;
+}
+
+.right-table-titles {
+    max-width: 70px;
+    font-size: 13px;
+    word-break: break-all;
+    white-space: normal;
+}
+
+.word-wrap {
+    white-space: normal;
+}

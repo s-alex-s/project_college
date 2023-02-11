@@ -1,0 +1,23 @@
+{% extends "main/base.html" %}
+{% load i18n %}
+{% load static %}
+{% block content %}
+    <link rel="stylesheet" href="{% static 'main/css/teacher/teacher.css' %}">
+
+    <div class="container">
+        {% include 'main/teacher/teacher-aside.html' %}
+
+        <div class="dashboard-panel">
+            <h1>{% trans 'Группы' %}</h1>
+            {% if not groups %}
+                <h2>{% trans 'Пусто' %}</h2>
+            {% endif %}
+
+            <div class="t-items">
+                {% for group in groups %}
+                    <a href="{% url 'teacher-modules' group_pk=group.0 %}" style="width: 80%" class="info-button">{{ group.1 }}</a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

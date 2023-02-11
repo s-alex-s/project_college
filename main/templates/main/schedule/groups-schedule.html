@@ -1,0 +1,30 @@
+{% extends "main/base.html" %}
+{% load static %}
+{% load i18n %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'main/css/list-view.css' %}">
+
+<div class="container">
+    <h1 class="item-title">{% trans 'Расписание' %}</h1>
+</div>
+
+<div class="container">
+    <div class="box">
+        <h1>{% trans 'Группы' %}</h1>
+        {% if not groups %}
+            <h2>{% trans 'Пусто' %}</h2>
+        {% endif %}
+        <ul>
+            {% for group in groups %}
+                <div class="item">
+                    <a href="{% url 'days-schedule' pk=group.pk %}" class="link-width">
+                        <div class="group-box">
+                            <div class="name">{% trans 'Группа' %}: {{ group.name }}</div>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}
