@@ -9,12 +9,14 @@
 </div>
 
 <div class="container">
-    <a href="{% url 'add-student' %}" class="info-button" style="margin: 0 0 20px 0">+ {% trans 'Добавить студента' %}</a>
+    <a href="{% url 'add-student' group_id=group.pk %}" class="info-button" style="margin: 0 0 20px 0">+ {% trans 'Добавить студента' %}</a>
     <a href="{% url 'add-student-file' %}" class="info-button" style="margin: 0 0 20px 10px">+ {% trans 'Добавить студентов с файла Excel' %}</a>
 </div>
 
 <div class="container">
     <div class="box">
+        <h2>{% trans 'Группа' %}: {{ group }}</h2>
+
         {% if not students %}
             <h1>{% trans 'Пусто' %}</h1>
         {% endif %}
@@ -22,9 +24,8 @@
             {% for student in students %}
                 <div class="item">
                     <a href="{{ student.get_absolute_url }}" class="link">
-                        <div class="item-box">
+                        <div class="group-box">
                             <div class="name">{{ student }}</div>
-                            <div>{% trans 'Группа' %}: {{ student.group.name }}</div>
                         </div>
                     </a>
                     <div class="item-buttons">

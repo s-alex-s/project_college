@@ -20,24 +20,25 @@
             {% for table in data.tables %}
                 <div class="marks-table">
                     {% for topic in table.marks %}
-                        <div class="table-title">{% trans 'Тема' %}: {{ topic.title }}</div>
+                        <div class="flex-box">
+                            <div class="table-title">{% trans 'Тема' %}: {{ topic.title }}</div>
 
-                        <div class="row">
-                            {% if marks_rating.good_min <= topic.mark and topic.mark <= marks_rating.good_max %}
-                                <div class="mark"><div class="good-mark">{{ topic.mark }}</div></div>
-                            {% elif marks_rating.mid_min <= topic.mark and topic.mark <= marks_rating.mid_max %}
-                                <div class="mark"><div class="mid-mark">{{ topic.mark }}</div></div>
-                            {% elif topic.mark < marks_rating.mid_min %}
-                                <div class="mark"><div class="bad-mark">{{ topic.mark }}</div></div>
-                            {% elif not topic.mark %}
-                                <div class="mark"><div class="bad-mark">{% trans 'н' %}</div></div>
-                            {% endif %}
+                            <div class="row">
+                                {% if marks_rating.good_min <= topic.mark and topic.mark <= marks_rating.good_max %}
+                                    <div class="mark"><div class="good-mark">{{ topic.mark }}</div></div>
+                                {% elif marks_rating.mid_min <= topic.mark and topic.mark <= marks_rating.mid_max %}
+                                    <div class="mark"><div class="mid-mark">{{ topic.mark }}</div></div>
+                                {% elif topic.mark < marks_rating.mid_min %}
+                                    <div class="mark"><div class="bad-mark">{{ topic.mark }}</div></div>
+                                {% elif not topic.mark %}
+                                    <div class="mark"><div class="bad-mark">{% trans 'н' %}</div></div>
+                                {% endif %}
+                            </div>
                         </div>
                         <div class="row-line"></div>
                     {% endfor %}
                 </div>
             {% endfor %}
-
         </div>
     </div>
 {% endblock %}

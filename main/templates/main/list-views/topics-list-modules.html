@@ -1,0 +1,33 @@
+{% extends "main/base.html" %}
+{% load static %}
+{% load i18n %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'main/css/list-view.css' %}">
+
+<div class="container">
+    <h1 class="item-title">{% trans 'Выберите предмет' %}</h1>
+</div>
+
+<div class="container">
+    <div class="box">
+        {% if not modules %}
+            <h1>{% trans 'Пусто' %}</h1>
+        {% endif %}
+
+        <ul>
+            {% for module in modules %}
+                <div class="item">
+                    <a href="{% url 'topics-list' module_id=module.pk %}" class="link-width">
+                        <div class="item-column-box">
+                            <div>{% trans 'Индекс' %}: {% if module.module_index %}{{ module.module_index }}{% endif %}</div>
+                            <div class="name">{% trans 'Имя' %}: {{ module.module_name }}</div>
+                            <div>{% trans 'Всего часов в предмете' %}: {{ module.get_hours }}</div>
+                            <div>{% trans 'Форма итоговой атестации' %}: {% if module.exam_type == 'z' %}{% trans 'Зачет' %}{% elif module.exam_type == 'e' %}{% trans 'Экзамен' %}{% endif %}</div>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

@@ -4,6 +4,8 @@
 }
 
 .box {
+    max-width: 1500px;
+    width: 90%;
 }
 
 .marks-table {
@@ -13,14 +15,23 @@
     border-top: 1px solid black;
 }
 
+.flex-box {
+    display: flex;
+}
+
+.row {
+    width: 50%;
+    border-left: 1px solid black;
+}
+
 .row div {
     padding: 5px;
 }
 
 .table-title {
-    border-bottom: 1px solid black;
     box-sizing: border-box;
     padding: 5px;
+    width: 50%;
     text-align: center;
 }
 

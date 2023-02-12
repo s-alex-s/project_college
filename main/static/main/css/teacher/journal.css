@@ -5,6 +5,7 @@
 
 .box {
     width: 95%;
+    max-width: 1500px;
 }
 
 .journal-table {

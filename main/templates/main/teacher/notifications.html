@@ -5,21 +5,23 @@
     <link rel="stylesheet" href="{% static 'main/css/teacher/teacher.css' %}">
 
     <div class="container">
-        {% include 'main/teacher/teacher-aside.html' %}
+        <div class="max-width">
+            {% include 'main/teacher/teacher-aside.html' %}
 
-        <div class="dashboard-panel">
-            <h1>{% trans 'Объявления' %}</h1>
-            {% if not notifs %}
-                <h2>{% trans 'Пусто' %}</h2>
-            {% endif %}
+            <div class="dashboard-panel">
+                <h1>{% trans 'Объявления' %}</h1>
+                {% if not notifs %}
+                    <h2>{% trans 'Пусто' %}</h2>
+                {% endif %}
 
-            <div class="t-items">
-                {% for i in notifs %}
-                    <div class="notif-box">
-                        <div class="date-time-notif">{{ i.date_time }}</div>
-                        <div class="notif-content">{{ i.content }}</div>
-                    </div>
-                {% endfor %}
+                <div class="t-items">
+                    {% for i in notifs %}
+                        <div class="notif-box">
+                            <div class="date-time-notif">{{ i.date_time }}</div>
+                            <div class="notif-content">{{ i.content }}</div>
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
         </div>
     </div>

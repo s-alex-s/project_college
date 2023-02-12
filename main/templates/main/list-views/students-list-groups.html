@@ -1,0 +1,39 @@
+{% extends "main/base.html" %}
+{% load static %}
+{% load i18n %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'main/css/list-view.css' %}">
+
+<div class="container">
+    <h1 class="item-title">{% trans 'Выберите группу' %}</h1>
+</div>
+
+<div class="container">
+    <div class="box">
+        {% if not groups and not no_group_students %}
+            <h2>{% trans 'Пусто' %}</h2>
+        {% endif %}
+        <ul>
+            {% if no_group_students %}
+                <div class="item">
+                    <a href="{% url 'no-group-students-list' %}" class="link-width">
+                        <div class="group-box">
+                            <div class="name">{% trans 'Студенты без группы' %}</div>
+                        </div>
+                    </a>
+                </div>
+            {% endif %}
+
+            {% for group in groups %}
+                <div class="item">
+                    <a href="{% url 'students-list' group_id=group.pk %}" class="link-width">
+                        <div class="group-box">
+                            <div class="name">{{ group.name }}</div>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

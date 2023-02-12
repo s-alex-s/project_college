@@ -243,6 +243,8 @@ def teacher_modules(request, group_pk):
 @user_passes_test(only_admin, login_url=reverse_lazy('main_page'))
 def dismiss_student(request, pk):
     student = Student.objects.get(pk=pk)
+    group_id = student.group_id
+
     if request.method == 'POST':
         dismissed_student = DismissedStudent(
             username=student.username,
@@ -258,7 +260,9 @@ def dismiss_student(request, pk):
         dismissed_student.save()
         student.delete()
 
-        return redirect('students-list')
+        if group_id:
+            return redirect('students-list', group_id=group_id)
+        return redirect('students-list', group_id=0)
     else:
         return render(request, 'main/delete-views/dismiss-student.html', {'object': student})
 
@@ -267,12 +271,16 @@ def dismiss_student(request, pk):
 @user_passes_test(only_admin, login_url=reverse_lazy('main_page'))
 def delete_student(request, pk):
     student = Student.objects.get(pk=pk)
+    group_id = student.group_id
+
     if request.method == 'POST':
         student.user.delete()
         student.delete()
-        return redirect('students-list')
-    else:
-        return render(request, 'main/delete-views/delete-form.html', {'object': student})
+
+        if group_id:
+            return redirect('students-list', group_id=group_id)
+        return redirect('students-list', group_id=0)
+    return render(request, 'main/delete-views/delete-form.html', {'object': student})
 
 
 @login_required(login_url=reverse_lazy('login_page'))
@@ -296,6 +304,7 @@ def recovery_student(request, pk):
         user.student_profile = student
         user.save()
         d_student.delete()
+
         return redirect('edit-student', pk=student.pk)
     else:
         return render(request, 'main/delete-views/recovery-student.html', {'object': d_student})
@@ -534,13 +543,42 @@ class TeachersView(ViewsMixin, LoginRequiredMixin, AdminRequiredMixin, ListView)
         return User.objects.filter(is_teacher=True, is_junioradmin=False, is_superuser=False)
 
 
-class StudentsView(ViewsMixin, LoginRequiredMixin, AdminRequiredMixin, ListView):
+class StudentsWithoutGroup(ViewsMixin, LoginRequiredMixin, AdminRequiredMixin, ListView):
     model = Student
     template_name = 'main/list-views/students-list.html'
     context_object_name = 'students'
 
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['group'] = _('Без группы')
+
+        return context
+
     def get_queryset(self):
-        return Student.objects.select_related('group')
+        return Student.objects.filter(group_id=None)
+
+
+class StudentsViewGroups(ViewsMixin, LoginRequiredMixin, AdminRequiredMixin, ListView):
+    model = Group
+    template_name = 'main/list-views/students-list-groups.html'
+    context_object_name = 'groups'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['no_group_students'] = Student.objects.filter(group_id=None)
+
+        return context
+
+
+@login_required(login_url=reverse_lazy('login_page'))
+@user_passes_test(only_admin, login_url=reverse_lazy('main_page'))
+def students_view(request, group_id):
+    if not group_id:
+        return redirect('no-group-students-list')
+
+    return render(request, 'main/list-views/students-list.html',
+                  {'students': Student.objects.filter(group_id=group_id),
+                   'group': Group.objects.get(pk=group_id)})
 
 
 @login_required(login_url=reverse_lazy('login_page'))
@@ -551,7 +589,7 @@ def add_student_from_file(request):
         if form.is_valid():
             errors = excel_handler_student(request)
             if not errors:
-                return redirect('students-list')
+                return redirect('students-list', int(form.data['group'][0]))
             else:
                 for error in errors:
                     form.add_error('excel_file', error)
@@ -578,13 +616,17 @@ class ModulesView(ViewsMixin, LoginRequiredMixin, AdminRequiredMixin, ListView):
     context_object_name = 'modules'
 
 
-class TopicsView(ViewsMixin, LoginRequiredMixin, AdminRequiredMixin, ListView):
-    model = Topic
-    template_name = 'main/list-views/topics-list.html'
-    context_object_name = 'topics'
+class TopicsViewModules(ViewsMixin, LoginRequiredMixin, AdminRequiredMixin, ListView):
+    model = Module
+    template_name = 'main/list-views/topics-list-modules.html'
+    context_object_name = 'modules'
 
-    def get_queryset(self):
-        return Topic.objects.select_related('module')
+
+@login_required(login_url=reverse_lazy('login_page'))
+@user_passes_test(only_admin, login_url=reverse_lazy('main_page'))
+def topics_view(request, module_id):
+    return render(request, 'main/list-views/topics-list.html', {'topics': Topic.objects.filter(module_id=module_id),
+                                                                'module': Module.objects.get(pk=module_id)})
 
 
 @login_required(login_url=reverse_lazy('login_page'))
@@ -636,10 +678,19 @@ class AddUser(ViewsMixin, LoginRequiredMixin, AdminRequiredMixin, CreateView):
     success_url = reverse_lazy('teachers-list')
 
 
-class AddStudent(ViewsMixin, LoginRequiredMixin, AdminRequiredMixin, CreateView):
-    form_class = StudentForm
-    template_name = 'main/create-views/add-form.html'
-    success_url = reverse_lazy('students-list')
+@login_required(login_url=reverse_lazy('login_page'))
+@user_passes_test(only_admin, login_url=reverse_lazy('main_page'))
+def add_student(request, group_id):
+    if request.method == 'POST':
+        form = StudentForm(data=request.POST)
+
+        if form.is_valid():
+            form.save()
+            return redirect('students-list', group_id=int(form.data['group']))
+    else:
+        form = StudentForm()
+        form.initial = {'group': group_id}
+    return render(request, 'main/create-views/add-form.html', {'form': form})
 
 
 class AddGroup(ViewsMixin, LoginRequiredMixin, AdminRequiredMixin, CreateView):
@@ -649,11 +700,19 @@ class AddGroup(ViewsMixin, LoginRequiredMixin, AdminRequiredMixin, CreateView):
     success_url = reverse_lazy('groups-list')
 
 
-class AddTopic(ViewsMixin, LoginRequiredMixin, AdminRequiredMixin, CreateView):
-    model = Topic
-    fields = '__all__'
-    template_name = 'main/create-views/add-form.html'
-    success_url = reverse_lazy('topics-list')
+@login_required(login_url=reverse_lazy('login_page'))
+@user_passes_test(only_admin, login_url=reverse_lazy('main_page'))
+def add_topic(request, module_id):
+    if request.method == 'POST':
+        form = TopicForm(data=request.POST)
+
+        if form.is_valid():
+            form.save()
+            return redirect('topics-list', module_id=int(form.data['module']))
+    else:
+        form = TopicForm()
+        form.initial = {'module': module_id}
+    return render(request, 'main/update-views/update-form.html', {'form': form})
 
 
 class AddModule(ViewsMixin, LoginRequiredMixin, AdminRequiredMixin, CreateView):
@@ -694,11 +753,22 @@ class EditUser(ViewsMixin, LoginRequiredMixin, AdminRequiredMixin, UpdateView):
     context_object_name = 'user'
 
 
-class EditStudent(ViewsMixin, LoginRequiredMixin, AdminRequiredMixin, UpdateView):
-    model = Student
-    form_class = EditStudentForm
-    template_name = 'main/update-views/update-form.html'
-    success_url = reverse_lazy('students-list')
+@login_required(login_url=reverse_lazy('login_page'))
+@user_passes_test(only_admin, login_url=reverse_lazy('main_page'))
+def edit_student(request, pk):
+    student = Student.objects.get(pk=pk)
+
+    if request.method == 'POST':
+        form = EditStudentForm(data=request.POST, instance=student)
+
+        if form.is_valid():
+            form.save()
+            if form.data['group']:
+                return redirect('students-list', group_id=int(form.data['group']))
+            return redirect('no-group-students-list')
+    else:
+        form = EditStudentForm(instance=student)
+    return render(request, 'main/update-views/update-form.html', {'form': form})
 
 
 class EditGroup(ViewsMixin, LoginRequiredMixin, AdminRequiredMixin, UpdateView):
@@ -715,11 +785,20 @@ class EditModule(ViewsMixin, LoginRequiredMixin, AdminRequiredMixin, UpdateView)
     success_url = reverse_lazy('modules-list')
 
 
-class EditTopic(ViewsMixin, LoginRequiredMixin, AdminRequiredMixin, UpdateView):
-    model = Topic
-    fields = '__all__'
-    template_name = 'main/update-views/update-form.html'
-    success_url = reverse_lazy('topics-list')
+@login_required(login_url=reverse_lazy('login_page'))
+@user_passes_test(only_admin, login_url=reverse_lazy('main_page'))
+def edit_topic(request, pk):
+    topic = Topic.objects.get(pk=pk)
+
+    if request.method == 'POST':
+        form = TopicForm(data=request.POST, instance=topic)
+
+        if form.is_valid():
+            form.save()
+            return redirect('topics-list', module_id=int(form.data['module']))
+    else:
+        form = TopicForm(instance=topic)
+    return render(request, 'main/update-views/update-form.html', {'form': form})
 
 
 class EditQualification(ViewsMixin, LoginRequiredMixin, AdminRequiredMixin, UpdateView):
@@ -761,10 +840,17 @@ class DeleteModule(ViewsMixin, LoginRequiredMixin, AdminRequiredMixin, DeleteVie
     success_url = reverse_lazy('modules-list')
 
 
-class DeleteTopic(ViewsMixin, LoginRequiredMixin, AdminRequiredMixin, DeleteView):
-    model = Topic
-    template_name = 'main/delete-views/delete-form.html'
-    success_url = reverse_lazy('topics-list')
+@login_required(login_url=reverse_lazy('login_page'))
+@user_passes_test(only_admin, login_url=reverse_lazy('main_page'))
+def delete_topic(request, pk):
+    topic = Topic.objects.get(pk=pk)
+    module_id = topic.module_id
+
+    if request.method == 'POST':
+        topic.delete()
+
+        return redirect('topics-list', module_id=module_id)
+    return render(request, 'main/delete-views/delete-form.html', {'object': topic})
 
 
 class DeleteQualification(ViewsMixin, LoginRequiredMixin, AdminRequiredMixin, DeleteView):

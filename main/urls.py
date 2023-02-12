@@ -23,11 +23,14 @@ urlpatterns = [
     path('dismissed-students/', DismissedStudentsView.as_view(), name='dismissed-students'),
     path('notifications-admin/', NotificationsAdminView.as_view(), name='notifs-admin'),
     path('teachers/', TeachersView.as_view(), name='teachers-list'),
-    path('students/', StudentsView.as_view(), name='students-list'),
+    path('students-groups/', StudentsViewGroups.as_view(), name='students-groups'),
+    path('students/group/<int:group_id>', students_view, name='students-list'),
+    path('students/', StudentsWithoutGroup.as_view(), name='no-group-students-list'),
     path('dashboard/', dashboard, name='dashboard'),
     path('groups/', GroupsView.as_view(), name='groups-list'),
     path('modules/', ModulesView.as_view(), name='modules-list'),
-    path('topics/', TopicsView.as_view(), name='topics-list'),
+    path('topics-modules/', TopicsViewModules.as_view(), name='topics-modules'),
+    path('topics/module/<int:module_id>', topics_view, name='topics-list'),
     path('qualifications/', QualificationsView.as_view(), name='quals-list'),
     path('specializations/', SpecializationsView.as_view(), name='specs-list'),
     # Teacher
@@ -44,7 +47,7 @@ urlpatterns = [
 
     path('add/user/', AddUser.as_view(), name='add-user'),
 
-    path('add/student/', AddStudent.as_view(), name='add-student'),
+    path('add/student/group/<int:group_id>', add_student, name='add-student'),
     path('add/student/file/', add_student_from_file, name='add-student-file'),
     path('download/students-pattern/', download_pattern_student, name='student-pattern-page'),
 
@@ -52,7 +55,7 @@ urlpatterns = [
 
     path('add/module/', AddModule.as_view(), name='add-module'),
 
-    path('add/topic/', AddTopic.as_view(), name='add-topic'),
+    path('add/topic/module/<int:module_id>', add_topic, name='add-topic'),
     path('add/topic/file/', add_topic_from_file, name='add-topic-file'),
     path('download/topics-pattern/', download_pattern_topic, name='topic-pattern-page'),
 
@@ -62,10 +65,10 @@ urlpatterns = [
     # Edit
     path('edit/notification/<int:pk>', EditNotification.as_view(), name='edit-notif'),
     path('edit/user/<int:pk>', EditUser.as_view(), name='edit-user'),
-    path('edit/student/<int:pk>', EditStudent.as_view(), name='edit-student'),
+    path('edit/student/<int:pk>', edit_student, name='edit-student'),
     path('edit/group/<int:pk>', EditGroup.as_view(), name='edit-group'),
     path('edit/module/<int:pk>', EditModule.as_view(), name='edit-module'),
-    path('edit/topic/<int:pk>', EditTopic.as_view(), name='edit-topic'),
+    path('edit/topic/<int:pk>', edit_topic, name='edit-topic'),
     path('edit/qualification/<int:pk>', EditQualification.as_view(), name='edit-qual'),
     path('edit/specialization/<int:pk>', EditSpecialization.as_view(), name='edit-spec'),
     # Delete
@@ -75,7 +78,7 @@ urlpatterns = [
     path('delete/student/<int:pk>', delete_student, name='delete-student'),
     path('delete/group/<int:pk>', DeleteGroup.as_view(), name='delete-group'),
     path('delete/module/<int:pk>', DeleteModule.as_view(), name='delete-module'),
-    path('delete/topic/<int:pk>', DeleteTopic.as_view(), name='delete-topic'),
+    path('delete/topic/<int:pk>', delete_topic, name='delete-topic'),
     path('delete/qualification/<int:pk>', DeleteQualification.as_view(), name='delete-qual'),
     path('delete/specialization/<int:pk>', DeleteSpecialization.as_view(), name='delete-spec'),
 ]

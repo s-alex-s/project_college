@@ -7,9 +7,9 @@
     <div class="container">
         <div class="box">
             <h2>{{ _('Логин') }}: {{ user.username }}</h2>
-            <h2>{{ _('ФИО') }}: {{ user.last_name }} {{ user.first_name }} {{ user.middle_name }}</h2>
-            <h2>{% trans 'Номер телефона' %}: {{ user.phone_number }}</h2>
-            <h2>{% trans 'E-mail' %}: {{ user.email }}</h2>
+            <h2>{{ _('ФИО') }}: {{ user }}</h2>
+            <h2>{% trans 'Номер телефона' %}: {% if user.phone_number %}{{ user.phone_number }}{% else %}{% trans 'Не указано' %}{% endif %}</h2>
+            <h2>{% trans 'E-mail' %}: {% if user.email %}{{ user.email }}{% else %}{% trans 'Не указано' %}{% endif %}</h2>
             {% if request.user.is_superuser or request.user.is_junioradmin %}
                 <div style="text-align: center;">
                     <a href="{% url 'edit-user-profile' %}" class="info-button">{% trans 'Редактировать' %}</a>

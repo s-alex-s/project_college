@@ -213,3 +213,9 @@ class AddStudentsFileForm(forms.Form):
             raise ValidationError(_('Неверный формат файла'))
 
         return cleaned_data
+
+
+class TopicForm(forms.ModelForm):
+    class Meta:
+        model = Topic
+        fields = '__all__'

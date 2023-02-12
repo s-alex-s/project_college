@@ -1,5 +1,6 @@
 .container {
     display: flex;
+    justify-content: center;
 }
 
 .dashboard-panel {
@@ -8,6 +9,12 @@
 }
 .dashboard-title {
     margin-top: 0;
+}
+
+.max-width {
+    display: flex;
+    max-width: 1500px;
+    width: 100%;
 }
 
 aside {

@@ -9,15 +9,18 @@
 </div>
 
 <div class="container">
-    <a href="{% url 'add-topic' %}" class="info-button" style="margin: 0 0 20px 0">+ {% trans 'Добавить тему' %}</a>
+    <a href="{% url 'add-topic' module_id=module.pk %}" class="info-button" style="margin: 0 0 20px 0">+ {% trans 'Добавить тему' %}</a>
     <a href="{% url 'add-topic-file' %}" class="info-button" style="margin: 0 0 20px 10px">+ {% trans 'Добавить темы с файла Excel' %}</a>
 </div>
 
 <div class="container">
     <div class="box">
+        <h2>{% trans 'Предмет' %}: {{ module }}</h2>
+
         {% if not topics %}
             <h1>{% trans 'Пусто' %}</h1>
         {% endif %}
+
         <ul>
             {% for topic in topics %}
                 <div class="item">
