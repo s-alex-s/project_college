@@ -1,5 +1,5 @@
 from django.urls import reverse
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext as _
 
 from django.db import models
 from django.contrib.auth.models import AbstractUser
@@ -46,7 +46,7 @@ class Topic(models.Model):
     hours = models.PositiveSmallIntegerField(verbose_name=_('Количество учебных часов'), default=0)
     home_task = models.TextField(verbose_name=_('Что задано'), blank=True, null=True)
 
-    module = models.ForeignKey('Module', on_delete=models.SET_NULL, null=True, verbose_name=_('Предмет'))
+    module = models.ForeignKey('Module', on_delete=models.CASCADE, verbose_name=_('Предмет'))
 
     def __str__(self):
         return self.name

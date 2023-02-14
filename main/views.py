@@ -392,30 +392,34 @@ def teacher_journal(request, sch_pk):
                         new_mark.save()
 
     journal = {
-        'students': sch.group.student_set.all(),
+        'students': sch.group.student_set.order_by('number').all(),
         'topics': [i for i in sch.module.topic_set.all()],
         'marks': []
     }
     total_hours = 0
     mid_marks = {}
+
+    marks_query = Mark.objects.select_related('teacher', 'student', 'topic', 'module').filter(module_id=sch.module_id).all()
+    compl_topic_query = CompletedTopic.objects.select_related('topic', 'teacher', 'module').filter(module_id=sch.module_id)
+
     for topic in journal['topics']:
         topic_marks = []
-        compl_topic = CompletedTopic.objects.filter(topic_id=topic.pk, module_id=sch.module_id)
+        compl_topic = list(filter(lambda x: x.topic_id == topic.pk and x.module_id == sch.module_id, compl_topic_query))
         if compl_topic:
-            topic_marks.append((topic, compl_topic.first(), 'date'))
+            topic_marks.append((topic, compl_topic[0], 'date'))
         else:
             topic_marks.append((topic, ' ', 'date'))
         total_hours += topic.hours
         for student in journal['students']:
             if student.pk not in mid_marks.keys():
                 mid_marks[student.pk] = []
-            mark = Mark.objects.filter(module=sch.module, student=student, topic=topic).select_related('topic').first()
+            mark = list(filter(lambda x: x.module == sch.module and x.student == student and x.topic == topic, marks_query))
             if not mark:
                 topic_marks.append((' ', student.pk))
             else:
-                if mark.mark:
-                    mid_marks[student.pk].append(mark.mark)
-                topic_marks.append((mark.pk, mark.mark))
+                if mark[0].mark:
+                    mid_marks[student.pk].append(mark[0].mark)
+                topic_marks.append((mark[0].pk, mark[0].mark))
         journal['marks'].append(topic_marks)
 
     mid_marks = list(mid_marks.values())

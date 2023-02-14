@@ -11,6 +11,7 @@
 <div class="container">
     <a href="{% url 'add-topic' module_id=module.pk %}" class="info-button" style="margin: 0 0 20px 0">+ {% trans 'Добавить тему' %}</a>
     <a href="{% url 'add-topic-file' %}" class="info-button" style="margin: 0 0 20px 10px">+ {% trans 'Добавить темы с файла Excel' %}</a>
+    <a href="{{ module.get_absolute_url }}" class="info-button" style="margin: 0 0 20px 10px">{% trans 'Редактировать предмет' %}</a>
 </div>
 
 <div class="container">
@@ -31,9 +32,6 @@
                         </div>
                     </a>
                     <div class="item-buttons">
-                        {% if topic.unit %}
-                            <a href="{{ topic.module.get_absolute_url }}" class="info-button">{% trans 'Редактировать предмет' %}</a>
-                        {% endif %}
                         <a href="{% url 'delete-topic' pk=topic.pk %}" class="delete-button">{% trans 'Удалить тему' %}</a>
                     </div>
                 </div>

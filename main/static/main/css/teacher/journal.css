@@ -163,6 +163,8 @@
     box-sizing: border-box;
     max-width: 500px;
     overflow-x: scroll;
+    position: relative;
+    border-right: 1px solid black;
 }
 
 .info-height1 {

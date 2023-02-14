@@ -24,7 +24,7 @@
                         <div class="col">
                             <div class="first-borders up-blocks table-title">№</div>
                             {% for n in journal.students %}
-                                <div class="n">{{ forloop.counter }}</div>
+                                <div class="n">{% if n.number %}{{ n.number }}{% else %}-{% endif %}</div>
                             {% endfor %}
                             <div class="n"> </div>
                             <div class="info-height1 left-bottom-borders"></div>
