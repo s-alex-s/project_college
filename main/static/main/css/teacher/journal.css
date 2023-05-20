@@ -5,7 +5,7 @@
 
 .box {
     width: 95%;
-    max-width: 1500px;
+    max-width: 2500px;
 }
 
 .journal-table {
@@ -161,7 +161,7 @@
 .topic-col {
     display: flex;
     box-sizing: border-box;
-    max-width: 500px;
+    max-width: 1000px;
     overflow-x: scroll;
     position: relative;
     border-right: 1px solid black;

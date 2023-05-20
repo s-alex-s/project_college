@@ -24,7 +24,7 @@
                         <div class="col">
                             <div class="first-borders up-blocks table-title">№</div>
                             {% for n in journal.students %}
-                                <div class="n">{% if n.number %}{{ n.number }}{% else %}-{% endif %}</div>
+                                <div class="n">{{ forloop.counter }}</div>
                             {% endfor %}
                             <div class="n"> </div>
                             <div class="info-height1 left-bottom-borders"></div>
@@ -173,9 +173,20 @@
                         } else {
                             elem.addClass('bad-mark');
                         }
-                    } else {
-                        elem.val('');
+                    } else if (!elem.val()) {
                         elem.addClass('empty-mark');
+                    } else {
+                        elem.val(elem.data('oldVal'));
+
+                        if ({{ marks_rating.good_min }} <= parseInt(elem.val()) && parseInt(elem.val()) <= {{ marks_rating.good_max }}) {
+                            elem.addClass('good-mark');
+                        } else if ({{ marks_rating.mid_min }} <= parseInt(elem.val()) && parseInt(elem.val()) <= {{ marks_rating.mid_max }}) {
+                            elem.addClass('mid-mark');
+                        } else if (parseInt(elem.val()) && parseInt(elem.val()) <= {{ marks_rating.mid_min }}) {
+                            elem.addClass('bad-mark');
+                        } else {
+                            elem.addClass('empty-mark');
+                        }
                     }
                     elem.data('oldVal', elem.val());
                 }

@@ -392,7 +392,7 @@ def teacher_journal(request, sch_pk):
                         new_mark.save()
 
     journal = {
-        'students': sch.group.student_set.order_by('number').all(),
+        'students': sch.group.student_set.all(),
         'topics': [i for i in sch.module.topic_set.all()],
         'marks': []
     }
