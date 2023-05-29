@@ -19,9 +19,15 @@
         <div class="box">
             {% for table in data.tables %}
                 <div class="marks-table">
+                    <div class="flex-box">
+                        <b class="table-title">{% trans 'Темы' %}</b>
+                        <b class="table-title" style="border-left: 1px solid black">{% trans 'Оценки' %}</b>
+                    </div>
+                    <div class="row-line"></div>
+
                     {% for topic in table.marks %}
                         <div class="flex-box">
-                            <div class="table-title">{% trans 'Тема' %}: {{ topic.title }}</div>
+                            <div class="table-title">{{ topic.title }}</div>
 
                             <div class="row">
                                 {% if marks_rating.good_min <= topic.mark and topic.mark <= marks_rating.good_max %}
