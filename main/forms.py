@@ -182,6 +182,7 @@ class ScheduleForm(forms.ModelForm):
         }
 
         widgets = {
+            'teachers': forms.SelectMultiple(attrs={'style': 'height: 300px;'}),
             'module': forms.Select(attrs={'autofocus': 'on'}),
             'time_start': forms.TimeInput(attrs={'type': 'time'}),
             'time_end': forms.TimeInput(attrs={'type': 'time'}),

@@ -142,7 +142,7 @@ class User(AbstractUser):
 
 
 class Schedule(models.Model):
-    group = models.ForeignKey('Group', on_delete=models.SET_NULL, null=True, verbose_name=_('Группа'))
+    group = models.ForeignKey('Group', on_delete=models.CASCADE, null=True, verbose_name=_('Группа'))
     module = models.ForeignKey(Module, on_delete=models.SET_NULL, verbose_name=_('Предмет'), null=True)
     teachers = models.ManyToManyField(User, verbose_name=_('Преподаватели'))
     date = models.PositiveSmallIntegerField(verbose_name=_('День недели'), choices=[
